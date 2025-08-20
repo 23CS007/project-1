@@ -1,0 +1,269 @@
+<!doctype html>
+<html lang="en" data-theme="auto">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="A clean, responsive HTML5 template with dark mode, accessible components, and no dependencies." />
+  <title>Acme — Modern HTML Starter</title>
+  <meta name="color-scheme" content="light dark" />
+  <style>
+    :root{
+      --bg:#ffffff; --fg:#0f172a; --muted:#475569; --card:#ffffff; --surface:#f8fafc;
+      --primary:#2563eb; --ring:rgba(37,99,235,.45); --border: color-mix(in oklab, var(--fg) 12%, transparent);
+      --radius: 16px; --shadow: 0 10px 20px rgba(2,6,23,.08), 0 3px 6px rgba(2,6,23,.06);
+    }
+    @media (prefers-color-scheme: dark){
+      :root{ --bg:#0b1220; --fg:#e5e7eb; --muted:#9ca3af; --card:#0e1628; --surface:#0f172a; --primary:#60a5fa; --shadow: 0 10px 24px rgba(0,0,0,.35); }
+    }
+    html[data-theme="light"]{ --bg:#ffffff; --fg:#0f172a; --muted:#475569; --card:#ffffff; --surface:#f8fafc; --primary:#2563eb; --shadow: 0 10px 20px rgba(2,6,23,.08), 0 3px 6px rgba(2,6,23,.06); }
+    html[data-theme="dark"]{ --bg:#0b1220; --fg:#e5e7eb; --muted:#9ca3af; --card:#0e1628; --surface:#0f172a; --primary:#60a5fa; --shadow: 0 10px 24px rgba(0,0,0,.35); }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{margin:0; font:16px/1.6 system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, "Helvetica Neue", Arial; color:var(--fg); background:var(--bg)}
+    ::selection{background: color-mix(in oklab, var(--primary) 30%, transparent)}
+    a{color:var(--primary); text-decoration:none}
+    a:hover{opacity:.9}
+    .container{width:min(100% - 2rem, 1120px); margin-inline:auto}
+
+    /* Header */
+    header{position:sticky; top:0; z-index:50; backdrop-filter: saturate(160%) blur(8px); background: color-mix(in oklab, var(--bg) 80%, transparent); border-bottom:1px solid var(--border)}
+    .nav{display:flex; align-items:center; justify-content:space-between; padding:.8rem 0}
+    .brand{display:flex; align-items:center; gap:.6rem; font-weight:800; letter-spacing:.2px}
+    .logo{inline-size:28px; block-size:28px; border-radius:8px; background:linear-gradient(135deg, var(--primary), #22d3ee); box-shadow:var(--shadow)}
+    .links{display:flex; align-items:center; gap:1rem}
+    .links a{color:inherit}
+    .mobile-toggle{display:none}
+
+    .btn{display:inline-flex; align-items:center; justify-content:center; gap:.5rem; padding:.65rem 1rem; border-radius:999px; border:1px solid var(--border); background:transparent; color:inherit; cursor:pointer; font-weight:600}
+    .btn.primary{background:var(--primary); color:white; border-color:transparent; box-shadow:var(--shadow)}
+    .btn:focus-visible{outline:none; box-shadow:0 0 0 4px var(--ring)}
+
+    /* Hero */
+    .hero{padding:4rem 0 2rem}
+    .hero-grid{display:grid; grid-template-columns:1.2fr .8fr; gap:2rem; align-items:center}
+    h1{font-size:clamp(2rem, 3.3vw + 1rem, 3.6rem); line-height:1.1; letter-spacing:-.02em; margin:0}
+    .lead{font-size:clamp(1rem, .5vw + 1rem, 1.2rem); color:var(--muted); margin:.9rem 0 1.2rem}
+    .chip{display:inline-flex; align-items:center; gap:.5rem; padding:.35rem .7rem; border-radius:999px; border:1px solid var(--border); background:var(--surface); font-size:.85rem}
+    .mock{background:var(--card); border:1px solid var(--border); border-radius:var(--radius); padding:1rem; box-shadow:var(--shadow)}
+    .code{background:#0b1020; color:#d1d5db; border-radius:12px; padding:1rem; overflow:auto; font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace; font-size:.9rem}
+
+    /* Sections */
+    .section{padding:3.5rem 0}
+    .grid{display:grid; gap:1.2rem}
+    .grid.features{grid-template-columns:repeat(3, 1fr)}
+    .card{background:var(--card); border:1px solid var(--border); border-radius:var(--radius); padding:1.2rem; box-shadow:var(--shadow)}
+    .card h3{margin:.2rem 0 .4rem}
+
+    .stats{display:grid; grid-template-columns:repeat(4, 1fr); gap:1rem}
+    .stat{padding:1rem; text-align:center; border-radius:var(--radius); background:var(--surface); border:1px solid var(--border)}
+    .stat b{font-size:1.6rem}
+
+    .pricing{display:grid; grid-template-columns:repeat(3, 1fr); gap:1.2rem}
+    .price{display:flex; align-items:baseline; gap:.35rem}
+    .list{margin:.6rem 0 1rem; padding:0; list-style:none}
+    .list li{display:flex; gap:.6rem; align-items:flex-start; margin:.45rem 0}
+
+    footer{padding:2rem 0 3rem; color:var(--muted); border-top:1px solid var(--border)}
+
+    /* Responsive */
+    @media (max-width:1000px){
+      .hero-grid{grid-template-columns:1fr}
+      .grid.features{grid-template-columns:1fr 1fr}
+      .stats{grid-template-columns:1fr 1fr}
+      .pricing{grid-template-columns:1fr 1fr}
+      .mobile-toggle{display:inline-flex}
+    }
+    @media (max-width:640px){
+      .grid.features{grid-template-columns:1fr}
+      .pricing{grid-template-columns:1fr}
+      .links{display:none}
+      .links.open{display:flex; flex-direction:column; gap:.8rem; position:absolute; inset-inline:1rem; top:56px; background:var(--card); border:1px solid var(--border); border-radius:12px; padding:1rem; box-shadow:var(--shadow)}
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header role="banner" aria-label="Main header">
+    <div class="container nav">
+      <a class="brand" href="#" aria-label="Acme home">
+        <span class="logo" aria-hidden="true"></span>
+        <span>Acme</span>
+      </a>
+      <nav class="links" aria-label="Primary">
+        <a href="#features">Features</a>
+        <a href="#pricing">Pricing</a>
+        <a href="#contact">Contact</a>
+        <button class="btn" id="themeToggle" aria-pressed="false" aria-label="Toggle theme">🌓</button>
+        <a href="#" class="btn primary">Get Started</a>
+      </nav>
+      <button class="btn mobile-toggle" id="menuBtn" aria-expanded="false" aria-controls="mobileMenu" aria-label="Open menu">☰</button>
+    </div>
+  </header>
+
+  <!-- Mobile menu (shown under 640px) -->
+  <div class="container">
+    <nav id="mobileMenu" class="links" hidden>
+      <a href="#features">Features</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#contact">Contact</a>
+      <a href="#" class="btn primary">Get Started</a>
+    </nav>
+  </div>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="container hero-grid">
+      <div>
+        <span class="chip">✨ New: v1.0 template</span>
+        <h1>Build fast with a <br>clean HTML starter</h1>
+        <p class="lead">Drop this single file into any project and ship a polished landing page with responsive layout, dark mode, and accessible components — no frameworks.</p>
+        <div class="cta" style="display:flex; gap:1rem; flex-wrap:wrap; margin-top:1rem">
+          <a class="btn primary" href="#pricing">Start Free</a>
+          <a class="btn" href="#features">See Features</a>
+        </div>
+      </div>
+      <div class="mock" role="img" aria-label="Code preview">
+        <pre class="code"><code>&lt;section class="hero"&gt;
+  &lt;h1&gt;Build fast with HTML&lt;/h1&gt;
+  &lt;p&gt;No dependencies required.&lt;/p&gt;
+  &lt;a class="btn" href="#"&gt;Get Started&lt;/a&gt;
+&lt;/section&gt;</code></pre>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features -->
+  <section id="features" class="section">
+    <div class="container">
+      <h2 style="margin:0 0 1rem">Features</h2>
+      <div class="grid features">
+        <article class="card">
+          <h3>Responsive by default</h3>
+          <p>Grid-based layouts, fluid typography, and sensible breakpoints that look great on any device.</p>
+        </article>
+        <article class="card">
+          <h3>Dark mode toggle</h3>
+          <p>Respects system preference with a manual override you can persist to localStorage.</p>
+        </article>
+        <article class="card">
+          <h3>Accessible components</h3>
+          <p>Semantic HTML, focus styles, and ARIA attributes for a better experience for all users.</p>
+        </article>
+      </div>
+
+      <div class="stats" style="margin-top:1.2rem">
+        <div class="stat"><b>~4 KB</b><div>of CSS</div></div>
+        <div class="stat"><b>0</b><div>Dependencies</div></div>
+        <div class="stat"><b>&lt; 1 ms</b><div>JS Runtime</div></div>
+        <div class="stat"><b>100%</b><div>Pure HTML</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pricing -->
+  <section id="pricing" class="section" aria-labelledby="pricing-title">
+    <div class="container">
+      <h2 id="pricing-title" style="margin:0 0 1rem">Pricing</h2>
+      <div class="pricing">
+        <article class="card" aria-label="Free plan">
+          <h3>Free</h3>
+          <div class="price"><strong>$0</strong><span>/ forever</span></div>
+          <ul class="list">
+            <li>✅ Single-file template</li>
+            <li>✅ Dark mode</li>
+            <li>✅ MIT License</li>
+          </ul>
+          <button class="btn primary">Download</button>
+        </article>
+        <article class="card" aria-label="Pro plan">
+          <h3>Pro</h3>
+          <div class="price"><strong>$12</strong><span>/ site</span></div>
+          <ul class="list">
+            <li>✅ Extra sections</li>
+            <li>✅ Email support</li>
+            <li>✅ SVG icon set</li>
+          </ul>
+          <button class="btn primary">Buy Now</button>
+        </article>
+        <article class="card" aria-label="Team plan">
+          <h3>Team</h3>
+          <div class="price"><strong>$29</strong><span>/ team</span></div>
+          <ul class="list">
+            <li>✅ 5 sites</li>
+            <li>✅ Priority support</li>
+            <li>✅ Figma file</li>
+          </ul>
+          <button class="btn primary">Contact Sales</button>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact" class="section" aria-labelledby="contact-title">
+    <div class="container">
+      <h2 id="contact-title" style="margin:0 0 1rem">Contact</h2>
+      <form class="card" onsubmit="event.preventDefault(); alert('Thanks! We\'ll be in touch.');">
+        <label>
+          <span class="sr-only">Your name</span>
+          <input name="name" required placeholder="Your name" style="width:100%; padding:.8rem 1rem; border-radius:12px; border:1px solid var(--border); background:var(--surface); color:inherit" />
+        </label>
+        <div style="height:.8rem"></div>
+        <label>
+          <span class="sr-only">Email</span>
+          <input type="email" name="email" required placeholder="you@example.com" style="width:100%; padding:.8rem 1rem; border-radius:12px; border:1px solid var(--border); background:var(--surface); color:inherit" />
+        </label>
+        <div style="height:.8rem"></div>
+        <label>
+          <span class="sr-only">Message</span>
+          <textarea name="message" rows="4" placeholder="How can we help?" style="width:100%; padding:.8rem 1rem; border-radius:12px; border:1px solid var(--border); background:var(--surface); color:inherit; resize:vertical"></textarea>
+        </label>
+        <div style="height:1rem"></div>
+        <button class="btn primary" type="submit">Send</button>
+      </form>
+    </div>
+  </section>
+
+  <footer role="contentinfo">
+    <div class="container">
+      <div style="display:flex; justify-content:space-between; align-items:center; gap:1rem; flex-wrap:wrap">
+        <small>© <span id="year"></span> Acme Inc.</small>
+        <div style="display:flex; gap:.8rem; align-items:center">
+          <a href="#">Privacy</a>
+          <a href="#">Terms</a>
+          <a href="#">Docs</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Mobile menu toggle
+    const menuBtn = document.getElementById('menuBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    menuBtn?.addEventListener('click', () => {
+      const expanded = menuBtn.getAttribute('aria-expanded') === 'true';
+      menuBtn.setAttribute('aria-expanded', String(!expanded));
+      mobileMenu.hidden = expanded;
+      mobileMenu.classList.toggle('open');
+    });
+
+    // Theme toggle: auto (system), light, dark
+    const html = document.documentElement;
+    const toggle = document.getElementById('themeToggle');
+    const saved = localStorage.getItem('theme');
+    if(saved){ html.setAttribute('data-theme', saved); }
+    toggle?.addEventListener('click', () => {
+      const current = html.getAttribute('data-theme') || 'auto';
+      const next = current === 'light' ? 'dark' : current === 'dark' ? 'auto' : 'light';
+      html.setAttribute('data-theme', next);
+      localStorage.setItem('theme', next);
+      toggle.setAttribute('aria-pressed', String(next !== 'auto'));
+    });
+  </script>
+</body>
+</html>
